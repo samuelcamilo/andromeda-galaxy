@@ -33,6 +33,30 @@ local Anvil fork, and writes to SQLite and Telegram.
 - **Bounded concurrency everywhere** — configurable parallelism and timeouts for block processing,
   enrichment and simulation.
 
+## Why Rust
+
+This project lives on the mainnet hot path — it has to inspect every transaction in every new block,
+decode EVM bytecode and run fork simulations, all faster than the next block arrives. Rust was chosen
+deliberately for that workload:
+
+- **Predictable, low-latency performance.** No garbage collector means no stop-the-world pauses while
+  a block is being processed. Latency stays flat under load, which matters when opportunities and
+  risks are only relevant for a few seconds.
+- **Fearless concurrency.** The bot fans out heavily — up to 8 blocks in flight, 64 transactions per
+  block analyzed in parallel, plus concurrent enrichment and Anvil simulations. Rust's ownership model
+  and `Send`/`Sync` guarantees make this data-race-free *at compile time* instead of hoping tests catch
+  it.
+- **Memory safety for a 24/7 service.** As a long-running daemon watching the chain indefinitely, it
+  cannot afford leaks or use-after-free bugs. The borrow checker rules those out without a runtime cost.
+- **A type system that models on-chain data honestly.** `Option`/`Result` force every failure path —
+  missing receipts, unverified sources, malformed bytecode, flaky external APIs — to be handled
+  explicitly, so an unexpected RPC response can't silently corrupt an alert.
+- **A first-class async and Ethereum ecosystem.** `tokio`, `actix-web`, `ethers-rs`, `revm`/`revmasm`
+  and Foundry/Anvil are all native Rust, giving a cohesive, high-performance stack with no FFI seams.
+- **The language of modern blockchain infrastructure.** Rust powers Foundry, `revm`, and smart-contract
+  platforms including Soroban, Solana and Polkadot — so the skills and patterns here transfer directly
+  to on-chain development.
+
 ## Architecture
 
 ```
