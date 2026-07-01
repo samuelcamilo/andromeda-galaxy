@@ -1,0 +1,21 @@
+services:
+  andromeda:
+    build: .
+    container_name: andromeda-galaxy
+    restart: always
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - andromeda-data:/app/data
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+
+volumes:
+  andromeda-data:

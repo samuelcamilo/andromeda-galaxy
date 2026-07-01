@@ -1,0 +1,21 @@
+[package]
+name = "andromeda-galaxy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.12.9", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+ethers = {version = "2.0.14",features = ["ws","rustls"]}
+actix-web = "4.9.0"
+rusqlite = { version = "0.31", features = ["bundled"] }
+futures = "0.3.31"
+dotenv = "0.15.0"
+thiserror = "2.0.7"
+log = "0.4"
+env_logger = "0.11.5"
+revmasm = "0.1.2"
+heimdall-cfg = { git = "https://github.com/Jon-Becker/heimdall-rs.git",  subdir = "crates/cfg" }
+

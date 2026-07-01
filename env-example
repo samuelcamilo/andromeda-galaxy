@@ -1,0 +1,8 @@
+SQLITE_PATH=/app/data/andromeda.db
+RUST_LOG=info
+RPC_ENDPOINT=ws://your-rpc-host:8546
+RPC_HTTP_ENDPOINT=http://your-rpc-host:8545
+TELEGRAM_BOT_TOKEN=replace-with-new-bot-token
+TELEGRAM_CHAT_ID=replace-with-chat-id
+TELEGRAM_BOT_USERNAME=replace-with-bot-username
+ETHERSCAN_API_KEY=replace-with-etherscan-api-key

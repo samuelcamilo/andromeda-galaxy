@@ -1,0 +1,20 @@
+[Unit]
+Description=Andromeda Telegram delivery watchdog
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+Environment=CONTAINER_NAME=andromeda-galaxy
+Environment=DB_PATH=/var/lib/docker/volumes/andromeda-galaxy_andromeda-data/_data/andromeda.db
+Environment=CHECK_INTERVAL_SECONDS=60
+Environment=MAX_SILENCE_SECONDS=900
+Environment=RESTART_COOLDOWN_SECONDS=600
+Environment=POST_RESTART_GRACE_SECONDS=180
+Environment=OK_LOG_EVERY_SECONDS=300
+ExecStart=/root/Deployer-ETH/andromeda-galaxy/scripts/andromeda-watchdog.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

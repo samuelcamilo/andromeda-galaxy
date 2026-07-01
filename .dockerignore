@@ -1,0 +1,8 @@
+.git
+target
+.env
+.env.*
+*.db
+*.sqlite
+*.sqlite3
+*.log
